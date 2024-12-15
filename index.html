@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IP Tracker</title>
+</head>
+<body>
+<div class="container">
+    <h1>Your IP Address</h1>
+    <p class="loading">Loading...</p>
+    <p class="ip-address" style="display: none;"></p>
+</div>
+
+<script>
+    const ipAddressElement = document.querySelector('.ip-address');
+    const loadingElement = document.querySelector('.loading');
+
+    fetch('https://api.ipify.org?format=json')
+        .then(response => response.json())
+        .then(data => {
+            ipAddressElement.textContent = data.ip;
+            ipAddressElement.style.display = 'block';
+            loadingElement.style.display = 'none';
+        })
+        .catch(error => {
+            loadingElement.textContent = 'Failed to load IP address.';
+            console.error('Error fetching IP address:', error);
+        });
+</script>
+</body>
+</html>
